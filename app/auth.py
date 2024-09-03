@@ -6,6 +6,8 @@ from app import crud, models, schemas
 from app.database import SessionLocal
 from bcrypt import checkpw, gensalt
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 def get_db():
     db = SessionLocal()
     try:
@@ -42,6 +44,5 @@ def get_current_user(db: Session = Depends(get_db), token: str = Depends(oauth2_
         raise credentials_exception
     return user
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
